@@ -131,7 +131,9 @@ metadata_csv_path = "image_metadata.csv"
 with open(metadata_csv_path, mode="w", newline="") as metadata_file:
     metadata_writer = csv.writer(metadata_file)
     # Write the header row
-    metadata_writer.writerow(["subreddit", "image_url", "caption", "up_votes", "time"])
+    metadata_writer.writerow(
+        ["subreddit", "id", "image_url", "caption", "up_votes", "time"]
+    )
 
     # Open the CSV file with subreddit list
     with open("sub_list.csv", newline="") as csvfile:
@@ -153,6 +155,7 @@ with open(metadata_csv_path, mode="w", newline="") as metadata_file:
                         # Write metadata to the CSV file
                         row = [
                             subreddit_name,
+                            submission.id,
                             submission.url,
                             submission.title,  # Assuming the title is the caption
                             submission.score,  # The number of upvotes
