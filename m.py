@@ -203,14 +203,16 @@ from dotenv import load_dotenv
 import csv
 from datetime import datetime
 import random
+from nltk.probability import FreqDist
 from nltk.corpus import words
 import time
+import nltk
 
 load_dotenv()
 
 max_length = 7
 min_length = 5
-target_submissions = 10000
+target_submissions = 70000
 metadata_csv_path = "image_metadata.csv"
 
 
@@ -298,6 +300,9 @@ for subreddit_name in subreddit_list:
     
     retries = 0
 
+    # text = nltk.corpus.gutenberg.raw('shakespeare-hamlet.txt')
+    # freq_dist = FreqDist(word.lower() for word in nltk.word_tokenize(text))
+    # popular_words = freq_dist.most_common()
     word_list = [word for word in words.words() if min_length <= len(word) <= max_length]
 
     print(f"======== <{subreddit_name}> ========")
@@ -311,6 +316,7 @@ for subreddit_name in subreddit_list:
         try:
             subreddit = reddit.subreddit(subreddit_name)
 
+            # keyword = random.choice(popular_words)[0]
             keyword = random.choice(word_list)
 
             if flag:
